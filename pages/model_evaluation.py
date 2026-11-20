@@ -58,11 +58,25 @@ if selected_model not in confusion_matrices:
     st.error("Confusion matrix not available for this model.")
     st.stop()
 
+
 report = classification_reports[selected_model]
 matrix_data = confusion_matrices[selected_model]
 
-class_names = matrix_data["class_names"]
-matrix = matrix_data["matrix"]
+# Handle different confusion matrix formats
+if isinstance(matrix_data, dict):
+    class_names = matrix_data["class_names"]
+    matrix = matrix_data["matrix"]
+else:
+    class_names = [
+        "ant",
+        "bee",
+        "beetle",
+        "butterfly",
+        "grasshopper",
+        "ladybug"
+    ]
+    matrix = matrix_data
+
 
 # --------------------------------------------------
 # OVERALL PERFORMANCE

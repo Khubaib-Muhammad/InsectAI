@@ -116,6 +116,7 @@ Three architectures were implemented and evaluated.
 A custom CNN architecture developed for six-class insect classification.
 
 **Architecture components:**
+
 - Convolutional layers.
 - ReLU activation.
 - Max pooling.
@@ -125,15 +126,17 @@ A custom CNN architecture developed for six-class insect classification.
 - Softmax output layer.
 
 **Configuration:**
+
 - Input size: 128 × 128 × 3
 - Output classes: 6
-- Trainable parameters: 4,288,454
+- Parameters: 4,288,454
 
 ### 2. CNN Version 3
 
 An improved custom CNN architecture designed with additional feature extraction and regularization components.
 
 **Architecture components:**
+
 - Data augmentation layers.
 - Convolutional layers.
 - Batch normalization.
@@ -145,15 +148,17 @@ An improved custom CNN architecture designed with additional feature extraction 
 - Softmax output layer.
 
 **Configuration:**
+
 - Input size: 128 × 128 × 3
 - Output classes: 6
-- Trainable parameters: 424,006
+- Parameters: 424,006
 
 ### 3. MobileNetV2
 
 MobileNetV2 is a pretrained convolutional neural network originally trained on ImageNet.
 
 Transfer learning was applied by:
+
 - Loading pretrained ImageNet weights.
 - Initially freezing the pretrained feature extraction layers.
 - Adding custom classification layers.
@@ -163,124 +168,98 @@ Transfer learning was applied by:
 - Keeping batch normalization layers frozen during fine-tuning.
 
 **Configuration:**
+
 - Input size: 160 × 160 × 3
 - Output classes: 6
-- Total trainable parameters: 2,422,726
+- Parameters: 2,422,726
 
 ## 📊 Model Performance
 
-The custom CNN models were evaluated on the held-out test dataset.
+All three models were evaluated on the same held-out test dataset containing **1,080 images**, with 180 images per class.
 
-| Evaluation Metric | CNN Version 1 | CNN Version 3 |
-|---|---:|---:|
-| Test Accuracy | 78.06% | 73.61% |
-| Precision | 78.31% | 74.35% |
-| Recall | 78.06% | 73.61% |
-| F1-Score | 77.91% | 73.06% |
-| Test Loss | 1.2121 | 0.7905 |
-| Parameters | 4,288,454 | 424,006 |
-| Inference Time/Image | 1.31 ms | 1.46 ms |
+### Overall Performance Comparison
 
-**Note:** MobileNetV2 achieved 96.24% validation accuracy, but its initial test evaluation produced 4.81% accuracy. This discrepancy is under investigation, so its results should not be treated as a reliable performance comparison until the evaluation pipeline is verified.
+| Evaluation Metric | CNN Version 1 | CNN Version 3 | MobileNetV2 |
+|---|---:|---:|---:|
+| Test Accuracy | 77.22% | 75.28% | **96.39%** |
+| Precision (Macro) | 76.80% | 76.17% | **96.40%** |
+| Recall (Macro) | 77.22% | 75.28% | **96.39%** |
+| F1-Score (Macro) | 76.83% | 74.91% | **96.38%** |
+| Test Loss | 1.3804 | 0.7485 | **0.1612** |
+| Parameters | 4,288,454 | 424,006 | 2,422,726 |
+| Inference Time/Image | **1.28 ms** | 1.45 ms | 3.13 ms |
 
-The application provides additional model metrics and visual comparisons.
+*Note: Inference times are based on the recorded evaluation measurements and may vary depending on hardware and execution environment.*
+
+### Key Findings
+
+- **MobileNetV2 achieved the highest test accuracy of 96.39%**, outperforming both custom CNN architectures.
+- MobileNetV2 also achieved the highest macro precision, recall, and F1-score.
+- CNN Version 3 has the fewest parameters, making it the smallest architecture among the three.
+- CNN Version 1 recorded the lowest average inference time per image.
+- MobileNetV2 demonstrated particularly strong classification performance across all six insect categories.
+
+### MobileNetV2 Class-Wise Performance
+
+| Insect Class | Precision | Recall | F1-Score |
+|---|---:|---:|---:|
+| Ant | 95.65% | 97.78% | 96.70% |
+| Bee | 94.09% | 97.22% | 95.63% |
+| Beetle | 95.35% | 91.11% | 93.18% |
+| Butterfly | 99.44% | 98.33% | 98.88% |
+| Grasshopper | 96.61% | 95.00% | 95.80% |
+| Ladybug | 97.27% | 98.89% | 98.07% |
+
+**Best-performing class:** Butterfly, with an F1-score of 98.88%.
+
+**Most challenging class:** Beetle, with a recall of 91.11%.
 
 ## 🖥️ Application Pages
 
-The Streamlit application is organized into eight interactive pages.
+The Streamlit application contains the following pages:
 
-### 1. Dashboard Overview
-Provides an overview of the InsectAI platform, dataset, supported classes, and available models.
-
-### 2. Live Classification
-Allows users to upload an insect image and receive:
-- Predicted insect category.
-- Prediction confidence.
-- Class-wise probability distribution.
-- Selected model information.
-
-### 3. Model Comparison
-Compares the three deep learning architectures using performance metrics, visualizations, and model characteristics.
-
-### 4. Training Analysis
-Displays:
-- Training accuracy.
-- Validation accuracy.
-- Training loss.
-- Validation loss.
-- Best validation accuracy.
-- Best validation loss.
-- Epoch-wise training progress.
-
-### 5. Dataset Explorer
-Provides dataset statistics, class distributions, and sample images from each insect category.
-
-### 6. Model Evaluation
-Includes:
-- Overall model performance.
-- Confusion matrices.
-- Classification reports.
-- Class-wise precision, recall, and F1-score.
-- Macro and weighted averages.
-
-### 7. Prediction History & Analytics
-Maintains a record of previous classification results.
-
-Stored information includes:
-- Prediction timestamp.
-- Uploaded image filename.
-- Selected model.
-- Predicted insect category.
-- Prediction confidence.
-
-Users can filter, analyze, and export prediction records.
-
-### 8. Model Explainability (Grad-CAM)
-Uses Gradient-weighted Class Activation Mapping (Grad-CAM) to visualize which image regions influence CNN predictions.
-
-The page displays:
-- Original uploaded image.
-- Grad-CAM heatmap.
-- Heatmap overlay.
-- Predicted class and confidence.
-- Class-wise prediction probabilities.
-
-Grad-CAM is currently configured for CNN Version 1 and CNN Version 3.
+| Page | Description |
+|---|---|
+| Dashboard Overview | Displays project information and model performance summaries. |
+| Live Classification | Allows users to upload insect images and generate predictions. |
+| Model Comparison | Compares the performance of all three trained models. |
+| Training Analysis | Visualizes training and validation accuracy and loss. |
+| Dataset Explorer | Explores dataset information, class distribution, and sample images. |
+| Model Evaluation | Displays confusion matrices, classification reports, and evaluation metrics. |
+| Prediction History | Tracks previous predictions and provides prediction analytics. |
+| Model Explainability | Generates Grad-CAM visualizations for supported CNN models. |
 
 ## 🔍 Grad-CAM Explainability
 
-A major feature of InsectAI is the integration of explainable AI.
+InsectAI incorporates **Gradient-weighted Class Activation Mapping (Grad-CAM)** to provide visual explanations for model predictions.
 
-Instead of providing only a predicted class, Grad-CAM helps visualize the image regions that contribute to a CNN's prediction.
+Grad-CAM highlights image regions that contribute to a model's classification decision.
 
-The implementation:
-1. Extracts feature maps from the selected convolutional layer.
-2. Calculates gradients with respect to the predicted class.
-3. Computes channel importance weights.
-4. Generates a class activation heatmap.
-5. Resizes the heatmap to match the original image.
-6. Combines the heatmap with the uploaded image.
+The explainability module provides:
 
-This provides a visual interpretation of the model's classification behavior.
+- Original uploaded image.
+- Grad-CAM heatmap.
+- Heatmap overlay on the original image.
+- Visual interpretation of important image regions.
 
-**Note:** Grad-CAM visualizations are approximate explanations of model behavior, not proof that a prediction is correct.
+Grad-CAM is currently implemented for CNN Version 1 and CNN Version 3.
+
+This feature helps make model predictions more interpretable by providing visual insights into the regions influencing classification.
 
 ## 🛠️ Technology Stack
 
-| Technology | Purpose |
+| Category | Technologies |
 |---|---|
-| Python | Core programming language |
-| TensorFlow | Deep learning framework |
-| Keras | Neural network development |
-| MobileNetV2 | Transfer learning architecture |
-| NumPy | Numerical computations |
-| Pandas | Data processing and analysis |
-| Matplotlib | Visualization and heatmap generation |
-| Pillow (PIL) | Image processing |
-| Scikit-learn | Model evaluation metrics |
-| Streamlit | Interactive web application |
-| Plotly | Interactive charts and visualizations |
-| Git & GitHub | Version control and project hosting |
+| Programming Language | Python |
+| Deep Learning | TensorFlow, Keras |
+| Computer Vision | Pillow, NumPy |
+| Data Analysis | Pandas, NumPy |
+| Visualization | Plotly, Matplotlib |
+| Machine Learning Metrics | Scikit-learn |
+| Web Application | Streamlit |
+| Model Explainability | Grad-CAM |
+| Development Environment | Kaggle Notebooks, Visual Studio Code |
+| Version Control | Git, GitHub |
 
 ## 📁 Project Structure
 
@@ -288,6 +267,9 @@ This provides a visual interpretation of the model's classification behavior.
 InsectAI/
 │
 ├── app.py
+├── requirements.txt
+├── README.md
+├── .gitignore
 │
 ├── models/
 │   ├── cnn_version_1.keras
@@ -312,8 +294,13 @@ InsectAI/
 │       ├── grasshopper/
 │       └── ladybug/
 │
-├── notebooks/
-│   └── training_notebooks.ipynb
+├── utils/
+│   ├── __init__.py
+│   ├── model_loader.py
+│   ├── preprocessing.py
+│   ├── prediction.py
+│   ├── data_loader.py
+│   └── explainability.py
 │
 ├── pages/
 │   ├── classification.py
@@ -324,120 +311,94 @@ InsectAI/
 │   ├── prediction_history.py
 │   └── model_explainability.py
 │
-├── utils/
-│   ├── __init__.py
-│   ├── model_loader.py
-│   ├── preprocessing.py
-│   ├── prediction.py
-│   ├── data_loader.py
-│   └── explainability.py
-│
 ├── assets/
 │
-├── inspect_metrics.py
-├── requirements.txt
-├── .gitignore
-└── README.md
+├── notebooks/
+│
+└── inspect_metrics.py
 ```
 
 ## ⚙️ Installation and Setup
 
-Follow these steps to run InsectAI locally.
-
-### Prerequisites
-
-- Python 3.10 or compatible version supported by the installed TensorFlow release.
-- pip package manager.
-- Git.
-- Sufficient memory and storage for loading the trained models.
-
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/InsectAI.git
+git clone https://github.com/Khubaib-Muhammad/InsectAI.git
 ```
-
-### 2. Navigate to the Project Directory
 
 ```bash
 cd InsectAI
 ```
 
-### 3. Create a Virtual Environment
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv myenv
 ```
 
-### 4. Activate the Virtual Environment
-
-**Windows:**
+Activate it on Windows:
 
 ```powershell
 myenv\Scripts\activate
 ```
 
-**Linux / macOS:**
-
-```bash
-source myenv/bin/activate
-```
-
-### 5. Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 6. Run the Streamlit Application
+### 4. Verify Project Files
+
+Ensure the following directories are available:
+
+- `models/` containing the trained `.keras` model files.
+- `artifacts/` containing the required JSON evaluation files and supporting artifacts.
+- `utils/` containing the application utility modules.
+- `pages/` containing the Streamlit application pages.
+
+## 🚀 Running the Application
+
+Start the Streamlit application using:
 
 ```bash
 streamlit run app.py
 ```
 
-The application will be available at:
+The application will be available locally at:
 
 ```text
 http://localhost:8501
 ```
 
-## 🚀 Live Demo
+You can also access the deployed application here:
 
-Explore the deployed InsectAI application:
-
-**[Launch InsectAI on Streamlit](https://insectai-qnsyy75tjbe2pkvbv9mhfe.streamlit.app/model_explainability)**
-
-Upload an insect image, explore classification predictions, compare models, and visualize Grad-CAM explanations.
+🔗 [Launch InsectAI](https://insectai-qnsyy75tjbe2pkvbv9mhfe.streamlit.app/model_explainability)
 
 ## 🔮 Future Improvements
 
 Potential future enhancements include:
 
-- Investigating and improving MobileNetV2 test performance.
-- Improving classification accuracy through hyperparameter optimization.
-- Adding additional insect categories.
-- Integrating additional explainability methods such as SHAP.
-- Improving model robustness across different lighting conditions and backgrounds.
-- Adding prediction confidence calibration.
-- Supporting batch image classification.
-- Improving deployment performance and model loading efficiency.
+- Adding more insect categories.
+- Improving custom CNN architectures.
+- Optimizing inference speed.
+- Extending Grad-CAM support to MobileNetV2.
+- Adding more explainability techniques.
+- Implementing real-time insect detection using object detection models.
+- Improving model generalization with additional training data.
+- Deploying the application with scalable cloud infrastructure.
+
+---
 
 ## 👨‍💻 Author
 
 **Khubaib Muhammad**
 
-Computer Science / Artificial Intelligence Student
+AI Undergraduate | Machine Learning & Deep Learning Enthusiast
 
 GitHub: [Khubaib-Muhammad](https://github.com/Khubaib-Muhammad)
 
 ---
 
-## 📄 License
-
-This project is intended for educational and research purposes.
-
-If you plan to distribute or reuse this project, add an appropriate open-source license to the repository.
-
----
-
 ⭐ If you find this project interesting, consider giving the repository a star!
+

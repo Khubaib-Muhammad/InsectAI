@@ -1,0 +1,67 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+myenv/
+.venv/
+
+# IDE and editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Operating system
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Test and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Model training checkpoints
+*.ckpt
+*.h5
+
+# TensorFlow / Keras temporary files
+*.keras.tmp
+
+# Large datasets
+data/
+dataset/
+datasets/
+*.zip
+*.rar
+*.7z
+
+# Kaggle
+kaggle.json
+
+# Optional: training output folders
+runs/
+logs/

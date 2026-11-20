@@ -1,0 +1,4 @@
+Timestamp,Image,Model,Predicted Class,Confidence (%)
+2026-11-20 14:47:13,images.webp,CNN Version 1,beetle,77.61
+2026-11-20 14:47:30,images.webp,CNN Version 3,beetle,50.67
+2026-11-20 14:47:45,images.webp,MobileNetV2,beetle,100.0

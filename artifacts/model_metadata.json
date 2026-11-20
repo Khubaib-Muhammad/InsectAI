@@ -1,0 +1,97 @@
+{
+    "CNN Version 1": {
+        "input_shape": "(None, 160, 160, 3)",
+        "output_shape": "(None, 6)",
+        "total_parameters": 2422726,
+        "trainable_parameters": 164742,
+        "number_of_layers": 9,
+        "layer_types": [
+            "InputLayer",
+            "Sequential",
+            "Rescaling",
+            "Functional",
+            "GlobalAveragePooling2D",
+            "Dropout",
+            "Dense",
+            "Dropout",
+            "Dense"
+        ],
+        "optimizer": "Adam",
+        "loss": "sparse_categorical_crossentropy",
+        "training_summary": {
+            "total_epochs": 25,
+            "best_validation_accuracy": 0.8111110925674438,
+            "best_accuracy_epoch": 22,
+            "best_validation_loss": 0.6576167941093445,
+            "best_loss_epoch": 11
+        }
+    },
+    "CNN Version 3": {
+        "input_shape": "(None, 128, 128, 3)",
+        "output_shape": "(None, 6)",
+        "total_parameters": 424006,
+        "trainable_parameters": 424006,
+        "number_of_layers": 23,
+        "layer_types": [
+            "RandomFlip",
+            "RandomRotation",
+            "RandomZoom",
+            "Conv2D",
+            "BatchNormalization",
+            "Activation",
+            "MaxPooling2D",
+            "Conv2D",
+            "BatchNormalization",
+            "Activation",
+            "MaxPooling2D",
+            "Conv2D",
+            "BatchNormalization",
+            "Activation",
+            "MaxPooling2D",
+            "Conv2D",
+            "BatchNormalization",
+            "Activation",
+            "MaxPooling2D",
+            "GlobalAveragePooling2D",
+            "Dense",
+            "Dropout",
+            "Dense"
+        ],
+        "optimizer": "Adam",
+        "loss": "sparse_categorical_crossentropy",
+        "training_summary": {
+            "total_epochs": 23,
+            "best_validation_accuracy": 0.7483659982681274,
+            "best_accuracy_epoch": 16,
+            "best_validation_loss": 0.7489286065101624,
+            "best_loss_epoch": 16
+        }
+    },
+    "MobileNetV2": {
+        "input_shape": "(None, 160, 160, 3)",
+        "output_shape": "(None, 6)",
+        "total_parameters": 2422726,
+        "trainable_parameters": 164742,
+        "number_of_layers": 9,
+        "layer_types": [
+            "InputLayer",
+            "Sequential",
+            "Rescaling",
+            "Functional",
+            "GlobalAveragePooling2D",
+            "Dropout",
+            "Dense",
+            "Dropout",
+            "Dense"
+        ],
+        "optimizer": "Adam",
+        "loss": "sparse_categorical_crossentropy",
+        "training_summary": {
+            "total_epochs": 21,
+            "best_validation_accuracy": 0.9624183177947998,
+            "best_accuracy_epoch": 17,
+            "best_validation_loss": 0.16836686432361603,
+            "best_loss_epoch": 17
+        }
+    }
+}
